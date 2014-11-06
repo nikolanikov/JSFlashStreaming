@@ -1,0 +1,58 @@
+Recently I had to create a solution for live video camera streaming.
+
+I tried different kinds of solutions, but still my biggest problem was the video recording.
+The only possible normal way to record video that is h264, to be able to restream without transcoding and without installing software is Flash.
+I'm really not used to with Flash, because I don't like it, but I had to deal with it, so I decided to push the code so other developers that don't like Flash either to use it with JavaScript.
+
+The streaming solution that I'm using is Wowza media server + modified recorder and player, to be able to be controlled with JS.
+You may also use it as an example how to communicate AS3 with JavaScript.
+
+Recorder
+=========
+webcam.html is for everybody that is used to learn by an example, so you may check to code for documentation :)
+
+JS functions:
+	//callback can be null 
+
+	InitConnection(URL,callback)
+		URL -> The URL of the RTMP streaming server application
+		callback(bool) -> null or Callback function that will be invoked on failure/success 
+		
+		This is maybe the first function that you must call, it initiates a connection to URL and on status it invokes callback(bool) function
+
+	StartStreaming(StreamName,StreamType,callback)
+		StreamName -> Name of the stream that will be created in the streaming server
+		StreamType -> "live"|"record"|"append" most probably you will need live, for more information you may check the Flash documentation
+		callback -> Funtion name that will be invoked on failure
+		
+		You must invoke StartStreaming after the connection is initated and the additional settings are set.
+	
+	stopStreaming(callback)
+		callback -> the callback is invoked when the stream is stopped.
+		
+		You may invoke stop streaming to stop the current stream, it is required if you want to change some of the stream options like the video quality or name of the stream.
+		
+	// Stream settings
+	
+	SetBufferingTime(BufferTime)
+		BufferTime -> (int) sets the recording buffering time (time to encode before start sending)
+	
+	SetCameraMode(Width,Height,FPS)
+		Width -> (int) camera width
+		Height -> (int) camera height
+		FPS -> Frames per second of the recorded stream
+		
+	SetQuality(Bandwidth,Quality,KeyFrameInterval)
+		Bandwidth -> (int) maximum bandwidth that can't be exceed, prefered 0 if you don't want to limit the bandwidth
+		Quality -> (int percents) higher value is better quality, lower is better compression from 0 to 100
+		KeyFrameInterval -> (int) after how many frames to put keyframe, this is mainly required when you want to make more files with lower length, mainly for low latency streams in DASH/HLS Streaming
+		
+	SetH264Mode(Profile,Level)
+		Profile -> it sets baseline or main profile for h264
+		Level -> it sets the level
+		Please read more in the Flash documentation if you need to use it
+		
+	SetMicrophone(codec,rate,gain,SilenceLevel,noiseSuppressionLevel,UseEchoSuppression)
+		This sets the audio codec and the microphone specific details
+		
+	
