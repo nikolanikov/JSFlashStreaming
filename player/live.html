@@ -1,0 +1,113 @@
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Webcam Recording</title>
+	<script>
+			function getFlashMovieObject(movieName){
+				if (window.document[movieName]){
+					return window.document[movieName];
+				}
+				if (navigator.appName.indexOf("Microsoft Internet")==-1){
+					if (document.embeds && document.embeds[movieName])
+					{
+						return document.embeds[movieName];
+					}
+				}
+				else{
+					return document.getElementById(movieName);
+				}
+			}
+
+			
+			function ConnectionCallback(isok)
+			{		
+				alert("ConnectionCallback "+isok);	
+			}
+			
+			function StreamCallback(isok)
+			{	
+				alert("StreamCallback "+isok);	
+			}
+			
+		
+			
+			function StartPlay(RTMPServer,StreamName)
+			{
+			var webcamerafobj=getFlashMovieObject("live");
+			webcamerafobj.StartPlay(RTMPServer,StreamName,"ConnectionCallback","StreamCallback");
+			}
+
+			function stopPlay()
+			{
+			var webcamerafobj=getFlashMovieObject("live");
+			webcamerafobj.StopPlay("StopPlay");
+			} 
+			
+			//Optional settings
+			function SetBufferingTime(BufferTime)
+			{
+			var webcamerafobj=getFlashMovieObject("live");
+			webcamerafobj.SetBufferingTime(BufferTime);
+			}
+			
+			function SetVolume(Volume)
+			{
+			var webcamerafobj=getFlashMovieObject("live");
+			webcamerafobj.SetVolume(Volume);
+			}
+			
+		</script>
+
+</head>
+<body onload="StartPlay('rtmp://127.0.0.1/live','testing');">
+    <div class="container">
+		<!-- HEADER -->
+        <div class="span-18">
+            <h1>Webcam Recording</h1>
+        </div>
+     
+        <div class="span-16">
+			<div id="flashContent">
+                <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="636" height="380" id="live" align="middle">
+				<param name="movie" value="live.swf" />
+				<param name="quality" value="high" />
+				<param name="bgcolor" value="#000000" />
+				<param name="play" value="true" />
+				<param name="loop" value="true" />
+				<param name="wmode" value="window" />
+				<param name="scale" value="showall" />
+				<param name="menu" value="true" />
+				<param name="devicefont" value="false" />
+				<param name="salign" value="" />
+				<param name="allowScriptAccess" value="sameDomain" />
+				<param name="allowFullScreen" value="true" />
+				<!--[if !IE]>-->
+				<object type="application/x-shockwave-flash" data="live.swf" width="636" height="380" id="live">
+					<param name="movie" value="live.swf" />
+					<param name="quality" value="high" />
+					<param name="bgcolor" value="#000000" />
+					<param name="play" value="true" />
+					<param name="loop" value="true" />
+					<param name="wmode" value="window" />
+					<param name="scale" value="showall" />
+					<param name="menu" value="true" />
+					<param name="devicefont" value="false" />
+					<param name="salign" value="" />
+					<param name="allowScriptAccess" value="sameDomain" />
+					<param name="allowFullScreen" value="true" />
+				<!--<![endif]-->
+					<a href="http://www.adobe.com/go/getflash">
+						<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+					</a>
+				<!--[if !IE]>-->
+				</object>
+				<!--<![endif]-->
+			</object>
+            </div>
+		</div>
+		<br />
+		
+		
+	</div> 
+</body>
+</html>

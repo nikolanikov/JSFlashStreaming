@@ -54,5 +54,21 @@ JS functions:
 		
 	SetMicrophone(codec,rate,gain,SilenceLevel,noiseSuppressionLevel,UseEchoSuppression)
 		This sets the audio codec and the microphone specific details
-		
+		More information about the current parameters: http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/Microphone.html
 	
+================	
+Player:
+	StartPlay(URL,StreamName,ConnectionCallback,StreamCallback)
+		URL -> The URL of the RTMP streaming server application
+		StreamName -> Name of the stream that will be created in the streaming server
+		ConnectionCallback -> callback on connection to the RTMP server
+		StreamCallback -> callback on playing the stream
+		
+	stopPlaying()
+		It stops playing the stream
+		
+		SetBufferingTime(BufferTime)
+		BufferTime -> (int) sets the playing buffering time (time to decode before start playing)
+		
+		SetVolume(Volume)
+		Volume -> (int percent) from 0 to 100 the volume level
